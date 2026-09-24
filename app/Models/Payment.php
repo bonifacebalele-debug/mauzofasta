@@ -6,6 +6,7 @@ use App\Models\Concerns\BelongsToBusiness;
 use App\Models\Concerns\HasUuid;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Payment extends Model
 {
@@ -34,5 +35,10 @@ class Payment extends Model
     public function recordedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'recorded_by');
+    }
+
+    public function receipt(): HasOne
+    {
+        return $this->hasOne(Receipt::class);
     }
 }

@@ -5,13 +5,19 @@ namespace App\Providers;
 use App\Models\Business;
 use App\Models\Category;
 use App\Models\Customer;
+use App\Models\Invoice;
 use App\Models\Order;
+use App\Models\Payment;
 use App\Models\Product;
+use App\Models\Receipt;
 use App\Policies\BusinessPolicy;
 use App\Policies\CategoryPolicy;
 use App\Policies\CustomerPolicy;
+use App\Policies\InvoicePolicy;
 use App\Policies\OrderPolicy;
+use App\Policies\PaymentPolicy;
 use App\Policies\ProductPolicy;
+use App\Policies\ReceiptPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -28,6 +34,9 @@ class AuthServiceProvider extends ServiceProvider
         Category::class => CategoryPolicy::class,
         Customer::class => CustomerPolicy::class,
         Order::class => OrderPolicy::class,
+        Payment::class => PaymentPolicy::class,
+        Invoice::class => InvoicePolicy::class,
+        Receipt::class => ReceiptPolicy::class,
     ];
 
     /**

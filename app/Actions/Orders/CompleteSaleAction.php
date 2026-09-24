@@ -2,6 +2,7 @@
 
 namespace App\Actions\Orders;
 
+use App\Actions\Invoices\GenerateInvoiceAction;
 use App\Models\Business;
 use App\Models\Customer;
 use App\Models\Order;
@@ -22,6 +23,7 @@ class CompleteSaleAction
     public function __construct(
         protected StockService $stock,
         protected PaymentServiceInterface $payments,
+        protected GenerateInvoiceAction $generateInvoice,
     ) {}
 
     /**
@@ -107,13 +109,10 @@ class CompleteSaleAction
                 'note' => 'Uuzaji mpya',
             ]);
 
+            $this->generateInvoice->execute($order->refresh()->load('items'));
+
             if ($paymentData && $paymentData['amount'] > 0) {
                 $this->payments->recordPayment($order, [...$paymentData, 'recorded_by' => $userId]);
-                $order->refresh();
-
-                if ($order->isFullyPaid()) {
-                    $order->transitionTo('paid', $userId, 'Malipo kamili');
-                }
             }
 
             return $order->refresh();

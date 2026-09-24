@@ -82,16 +82,42 @@
             </div>
 
             <div class="card mt-3">
-                <div class="card-header">Malipo</div>
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <span>Malipo</span>
+                    @can('create', \App\Models\Payment::class)
+                        @if ($order->balance() > 0)
+                            <a href="{{ route('payments.create', ['order_id' => $order->id]) }}" class="btn btn-sm btn-outline-primary">+ Rekodi Malipo</a>
+                        @endif
+                    @endcan
+                </div>
                 <div class="card-body">
                     @forelse ($order->payments as $payment)
-                        <div class="d-flex justify-content-between border-bottom pb-2 mb-2">
-                            <span>{{ $payment->method }}</span>
-                            <span>{{ money($payment->amount) }}</span>
+                        <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-2">
+                            <span>{{ $payment->method }} — {{ money($payment->amount) }}
+                                @if ($payment->status === 'refunded')
+                                    <span class="badge bg-secondary-subtle text-secondary">refunded</span>
+                                @endif
+                            </span>
+                            @if ($payment->receipt)
+                                <a href="{{ route('receipts.show', $payment->receipt) }}" class="btn btn-sm btn-outline-secondary">Risiti</a>
+                            @endif
                         </div>
                     @empty
                         <p class="text-muted mb-0">Hakuna malipo bado.</p>
                     @endforelse
+                </div>
+            </div>
+
+            <div class="card mt-3">
+                <div class="card-header">Ankara</div>
+                <div class="card-body">
+                    @if ($order->invoice)
+                        <a href="{{ route('invoices.show', $order->invoice) }}" class="btn btn-outline-secondary w-100">
+                            <i class="ri-file-list-3-line me-1"></i> {{ $order->invoice->invoice_number }}
+                        </a>
+                    @else
+                        <p class="text-muted mb-0">Hakuna ankara.</p>
+                    @endif
                 </div>
             </div>
 

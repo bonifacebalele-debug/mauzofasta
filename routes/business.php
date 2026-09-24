@@ -3,8 +3,11 @@
 use App\Http\Controllers\Business\CategoryController;
 use App\Http\Controllers\Business\CustomerController;
 use App\Http\Controllers\Business\DashboardController;
+use App\Http\Controllers\Business\InvoiceController;
 use App\Http\Controllers\Business\OrderController;
+use App\Http\Controllers\Business\PaymentController;
 use App\Http\Controllers\Business\ProductController;
+use App\Http\Controllers\Business\ReceiptController;
 use App\Http\Controllers\Business\RegistrationController;
 use App\Http\Controllers\Business\StockController;
 use App\Http\Controllers\Business\SwitchBusinessController;
@@ -53,4 +56,17 @@ Route::middleware(['auth', 'business'])->prefix('app')->group(function () {
     Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
     Route::post('/orders/{order}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel');
     Route::post('/orders/{order}/complete', [OrderController::class, 'complete'])->name('orders.complete');
+
+    Route::get('/payments', [PaymentController::class, 'index'])->name('payments.index');
+    Route::get('/payments/create', [PaymentController::class, 'create'])->name('payments.create');
+    Route::post('/payments', [PaymentController::class, 'store'])->name('payments.store');
+    Route::post('/payments/{payment}/refund', [PaymentController::class, 'refund'])->name('payments.refund');
+
+    Route::get('/invoices', [InvoiceController::class, 'index'])->name('invoices.index');
+    Route::get('/invoices/{invoice}', [InvoiceController::class, 'show'])->name('invoices.show');
+    Route::get('/invoices/{invoice}/pdf', [InvoiceController::class, 'pdf'])->name('invoices.pdf');
+
+    Route::get('/receipts', [ReceiptController::class, 'index'])->name('receipts.index');
+    Route::get('/receipts/{receipt}', [ReceiptController::class, 'show'])->name('receipts.show');
+    Route::get('/receipts/{receipt}/pdf', [ReceiptController::class, 'pdf'])->name('receipts.pdf');
 });

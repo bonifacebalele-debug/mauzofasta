@@ -9,6 +9,7 @@
         ['route' => 'customers.index', 'icon' => 'ri-group-line', 'label' => 'Wateja'],
         ['route' => 'payments.index', 'icon' => 'ri-bank-card-line', 'label' => 'Malipo'],
         ['route' => 'invoices.index', 'icon' => 'ri-file-list-3-line', 'label' => 'Ankara'],
+        ['route' => 'receipts.index', 'icon' => 'ri-receipt-line', 'label' => 'Risiti'],
         ['route' => 'expenses.index', 'icon' => 'ri-wallet-3-line', 'label' => 'Gharama'],
         ['route' => 'deliveries.index', 'icon' => 'ri-truck-line', 'label' => 'Uwasilishaji'],
         ['route' => 'store.settings', 'icon' => 'ri-store-2-line', 'label' => 'Duka la Mtandaoni'],
