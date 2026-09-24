@@ -39,8 +39,8 @@ This directory is **not** an empty Laravel skeleton. It already contains:
 Phase 0  Architecture (this document set)                                     ✅ done
 Phase 1  Foundation: auth, multi-tenancy, roles, business registration        ✅ done (22 tests passing on sqlite — see note below)
 Phase 2  Dashboard                                                            ✅ done (real Bootstrap 5 theme shell wired in)
-Phase 3  Products & Inventory                                                 ✅ done (36 tests passing on sqlite + MySQL)  ← we are here
-Phase 4  Customers & Sales (Fast Sale)
+Phase 3  Products & Inventory                                                 ✅ done (36 tests passing on sqlite + MySQL)
+Phase 4  Customers & Sales (Fast Sale)                                        ✅ done (53 tests passing on sqlite + MySQL)  ← we are here
 Phase 5  Payments & Documents (invoices, receipts, PDFs)
 Phase 6  Expenses & Reports
 Phase 7  Delivery (zones, riders, tracking)

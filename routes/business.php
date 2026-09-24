@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Business\CategoryController;
+use App\Http\Controllers\Business\CustomerController;
 use App\Http\Controllers\Business\DashboardController;
+use App\Http\Controllers\Business\OrderController;
 use App\Http\Controllers\Business\ProductController;
 use App\Http\Controllers\Business\RegistrationController;
 use App\Http\Controllers\Business\StockController;
@@ -35,4 +37,20 @@ Route::middleware(['auth', 'business'])->prefix('app')->group(function () {
     Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
     Route::put('/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
     Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+
+    Route::get('/customers', [CustomerController::class, 'index'])->name('customers.index');
+    Route::get('/customers/create', [CustomerController::class, 'create'])->name('customers.create');
+    Route::post('/customers', [CustomerController::class, 'store'])->name('customers.store');
+    Route::get('/customers/{customer}', [CustomerController::class, 'show'])->name('customers.show');
+    Route::get('/customers/{customer}/edit', [CustomerController::class, 'edit'])->name('customers.edit');
+    Route::put('/customers/{customer}', [CustomerController::class, 'update'])->name('customers.update');
+    Route::delete('/customers/{customer}', [CustomerController::class, 'destroy'])->name('customers.destroy');
+    Route::post('/customers/{customer}/notes', [CustomerController::class, 'storeNote'])->name('customers.notes.store');
+
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('/orders/quick-sale', [OrderController::class, 'quickSale'])->name('orders.quickSale');
+    Route::post('/orders/quick-sale', [OrderController::class, 'storeQuickSale'])->name('orders.quickSale.store');
+    Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
+    Route::post('/orders/{order}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel');
+    Route::post('/orders/{order}/complete', [OrderController::class, 'complete'])->name('orders.complete');
 });

@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Branch;
 use App\Models\Business;
+use App\Models\Customer;
 use App\Models\Product;
 use App\Support\Tenancy\CurrentBusiness;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -129,5 +130,24 @@ class TenantIsolationTest extends TestCase
 
         $response->assertSee('Perfume A');
         $response->assertDontSee('Perfume B');
+    }
+
+    public function test_a_business_cannot_view_or_edit_another_businesss_customer(): void
+    {
+        [$businessA, $ownerA] = $this->createBusinessWithOwner();
+        [$businessB] = $this->createBusinessWithOwner();
+
+        app(CurrentBusiness::class)->set($businessB);
+        $customerB = Customer::factory()->create(['business_id' => $businessB->id]);
+
+        app(CurrentBusiness::class)->set($businessA);
+
+        $this->actingAs($ownerA)->get(route('customers.show', $customerB))->assertNotFound();
+        $this->actingAs($ownerA)->put(route('customers.update', $customerB), [
+            'name' => 'Hijacked',
+            'phone' => $customerB->phone,
+        ])->assertNotFound();
+
+        $this->assertNotSame('Hijacked', $customerB->fresh()->name);
     }
 }

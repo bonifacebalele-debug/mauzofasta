@@ -14,6 +14,8 @@ Legend: **C**reate, **R**ead, **U**pdate, **D**elete, **S**pecial (module-specif
 | Customers | CRUD | CRUD | CR U | R | R | R (own delivery's customer only) |
 | Orders (Fast Sale) | CRUD | CRUD | CR U | R | R | – |
 | Apply discount (`orders.apply_discount`) | S | S | – (unless granted) | – | – | – |
+
+Orders are never truly deleted (rule 83) — the "D" in the Orders row above is implemented as `orders.cancel` (Owner via `*`, Manager explicitly), not a literal `orders.delete`.
 | Payments | CRUD | R | CR | – | CRUD | – |
 | Invoices | CRUD | R | CR | – | CRUD | – |
 | Receipts | CRUD | R | R | – | CRUD | – |
